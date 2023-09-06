@@ -2,9 +2,7 @@
 
 from datetime import datetime
 
-from sqlalchemy import (create_engine, desc, func,
-    CheckConstraint, PrimaryKeyConstraint, UniqueConstraint,
-    Index, Column, DateTime, Integer, String)
+from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -13,9 +11,44 @@ Base = declarative_base()
 class Student(Base):
     __tablename__ = 'students'
 
-    id = Column(Integer(), primary_key=True)
-    name = Column(String())
+    id = Column(Integer, primary_key=True, autoincrement=True)  # Add autoincrement=True
+    name = Column(String)
+    email = Column(String)
+    grade = Column(Integer)
+    birthday = Column(DateTime)
 
 if __name__ == '__main__':
     engine = create_engine('sqlite:///:memory:')
     Base.metadata.create_all(engine)
+
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    albert_einstein = Student(
+        name="Albert Einstein",
+        email="albert.einstein@zurich.edu",
+        grade=6,
+        birthday=datetime(
+            year=1879,
+            month=3,
+            day=14
+        ),
+    )
+
+    alan_turing = Student(
+        name="Alan Turing",
+        email="alan.turing@sherborne.edu",
+        grade=11,
+        birthday=datetime(
+            year=1912,
+            month=6,
+            day=23
+        ),
+    )
+
+    session.add_all([albert_einstein, alan_turing])  # Use add_all instead of bulk_save_objects
+    session.commit()
+
+    print(f"New student ID is {albert_einstein.id}.")
+    print(f"New student ID is {alan_turing.id}.")
+
