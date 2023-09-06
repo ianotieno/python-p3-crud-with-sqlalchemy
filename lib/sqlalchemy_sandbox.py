@@ -55,3 +55,7 @@ all_students = session.query(Student).all()
 
 for student in all_students:
     print(f"Student ID: {student.id}, Name: {student.name}, Email: {student.email} Grade:{student.grade},Birthday:{student.birthday}")
+
+names = [name for name in session.query(Student.name)]
+
+print(names)
