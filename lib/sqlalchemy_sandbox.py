@@ -77,3 +77,12 @@ session.commit()
 
 print([(student.name,
         student.grade) for student in session.query(Student)])
+
+session.query(Student).update({
+        Student.grade: Student.grade + 3
+    })
+
+print([(
+        student.name,
+        student.grade
+    ) for student in session.query(Student)])
