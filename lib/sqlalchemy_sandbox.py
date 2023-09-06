@@ -69,3 +69,11 @@ query = session.query(Student).filter(Student.name.like('%Alan%'),
         Student.grade == 11)
 for record in query:
     print(record.name)
+
+for student in session.query(Student):
+        student.grade += 1
+
+session.commit()
+
+print([(student.name,
+        student.grade) for student in session.query(Student)])
