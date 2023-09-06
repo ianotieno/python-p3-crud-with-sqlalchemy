@@ -51,4 +51,7 @@ if __name__ == '__main__':
 
     print(f"New student ID is {albert_einstein.id}.")
     print(f"New student ID is {alan_turing.id}.")
+all_students = session.query(Student).all()
 
+for student in all_students:
+    print(f"Student ID: {student.id}, Name: {student.name}, Email: {student.email}")
