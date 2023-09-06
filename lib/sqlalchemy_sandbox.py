@@ -86,3 +86,9 @@ print([(
         student.name,
         student.grade
     ) for student in session.query(Student)])
+
+session.delete(albert_einstein)
+session.commit()
+
+albert_einstein = query.first()
+print(albert_einstein)
