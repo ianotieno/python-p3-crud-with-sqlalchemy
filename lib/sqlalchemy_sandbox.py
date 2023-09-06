@@ -59,3 +59,13 @@ for student in all_students:
 names = [name for name in session.query(Student.name)]
 
 print(names)
+
+students_by_name = [student for student in session.query(
+            Student.name).order_by(
+            Student.name)]
+
+print(students_by_name)
+query = session.query(Student).filter(Student.name.like('%Alan%'),
+        Student.grade == 11)
+for record in query:
+    print(record.name)
